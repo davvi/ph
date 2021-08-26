@@ -15,5 +15,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
           registry: ghcr.io
-          repository: davii/ph/web
+          repository: davii/ph/web:0.0.2
           tag_with_ref: true
