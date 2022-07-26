@@ -42,6 +42,9 @@ jobs:
         run: echo 'projects created'
         
       - name: 'Update variable'
+        env:
+          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
+        if: "${{ env.PROJECT_EXISTS == false }}"
         uses: gliech/create-github-secret-action@v1
         with:
           name: PROJECT_EXISTS
