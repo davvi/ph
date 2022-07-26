@@ -24,27 +24,30 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - name: 'pork'
+              
+      - name: 'Create variable' 
         env:
-          VAR: ${{ secrets.FRONT_DOOR_PASSWORD }}
-        if: "${{ env.VAR != '' }}"
-        run: echo 'It not empty'
-        
-      - name: 'pork'
-        env:
-          VAR: ${{ secrets.FRONT_DOOR_PASSWORD }}
-        if: "${{ env.VAR == '' }}"
-        run: echo 'It empty'
-        
-      - name: 'naski' 
+          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
+        if: "${{ env.PROJECT_EXISTS == '' }}"
         uses: gliech/create-github-secret-action@v1
         with:
-          name: FRONT_DOOR_PASSWORD
-          value: true
+          name: PROJECT_EXISTS
+          value: false
           pa_token: ${{ secrets.PA_TOKEN }}
           
-      - name: 'Test'
-        run: echo 'It works'
-            
+      - name: 'Create project'
+        env:
+          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
+        if: "${{ env.PROJECT_EXISTS == false }}"
+        run: echo 'projects created'
+        
+      - name: 'Update variable'
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: PROJECT_EXISTS
+          value: true
+          pa_token: ${{ secrets.PA_TOKEN }}
+      
+       
+          
       
