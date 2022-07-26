@@ -26,13 +26,17 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: 'pork'
-        if: secrets.FRONT_DOOR_PASSWORD == true
-        run: echo 'It true'
+        env:
+          VAR: ${{ secrets.FRONT_DOOR_PASSWORD }}
+        if: "${{ env.VAR != '' }}"
+        run: echo 'It not empty'
         
-      - name: 'pork 2'
-        if: secrets.FRONT_DOOR_PASSWORD == false
-        run: echo 'It false'
-
+      - name: 'pork'
+        env:
+          VAR: ${{ secrets.FRONT_DOOR_PASSWORD }}
+        if: "${{ env.VAR == '' }}"
+        run: echo 'It empty'
+        
       - name: 'naski' 
         uses: gliech/create-github-secret-action@v1
         with:
