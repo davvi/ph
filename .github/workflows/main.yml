@@ -25,6 +25,6 @@ jobs:
       - name: 'Print var'
         env:
           VAR: ${{ secrets.IN_SONAR }}
-        run: echo $VAR
+        run: echo "$VAR hello"
 
       
