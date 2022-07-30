@@ -22,35 +22,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-              
-      - name: 'Create variable' 
+      - name: 'Print var'
         env:
-          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
-        if: "${{ env.PROJECT_EXISTS == '' }}"
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: PROJECT_EXISTS
-          value: false
-          pa_token: ${{ secrets.PA_TOKEN }}
-          
-      - name: 'Create project'
-        env:
-          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
-        if: "${{ env.PROJECT_EXISTS == false }}"
-        run: echo 'projects created'
-        
-      - name: 'Update variable'
-        env:
-          PROJECT_EXISTS: ${{ secrets.PROJECT_EXISTS }}
-        if: "${{ env.PROJECT_EXISTS == false }}"
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: PROJECT_EXISTS
-          value: true
-          pa_token: ${{ secrets.PA_TOKEN }}
-      
-       
-          
+          VAR: ${{ secrets.IN_SONAR }}
+        run: echo $VAR
+
       
